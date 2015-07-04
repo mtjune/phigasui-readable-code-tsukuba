@@ -1,3 +1,3 @@
 #Ruby
 
-`ruby recipe.rb`
+`ruby recipe.rb [recipe-data]`
