@@ -14,9 +14,9 @@ File.open(file_name, "r") do |recipe_data|
 
   recipe_data.readlines.each_with_index do |recipe, recipe_id|
     recipes[recipe_id] = recipe
-    puts recipe
+    puts "#{recipe_id}: #{recipes[recipe_id]}"
   end
 
-  # puts "#{input_id}: #{recipes[input_id]}"
+    # puts "#{input_id}: #{recipes[input_id]}"
 
 end
