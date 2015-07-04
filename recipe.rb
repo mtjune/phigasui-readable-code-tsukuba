@@ -12,9 +12,8 @@ file_name = ARGV.length > 0 ? ARGV[0] : "recipe-data.txt"
 recipes = {}
 File.open(file_name, "r") do |recipe_data|
 
-  recipe_data.readlines.each do |recipe|
-    recipe_id, recipe_title = recipe.split(":").map(&:strip)
-    recipes[recipe_id] = recipe_title
+  recipe_data.readlines.each_with_index do |recipe, recipe_id|
+    recipes[recipe_id] = recipe
     puts recipe
   end
 
