@@ -17,8 +17,8 @@ while user_count < user_num
 
   File.open(file_name, "r") do |recipe_data|
 
-    recipe_data.readlines.each do |recipe|
-      users[user_name][recipe_count] = recipe
+    recipe_data.readlines.each do |recipe_content|
+      users[user_name][recipe_count] = recipe_content
       recipe_count += 1
     end
 
@@ -55,6 +55,7 @@ if ARGV.length % 2 == 0 # ID指定が無い場合
     recipes.each do |recipe_id, recipe_content|
       puts "#{recipe_id}: #{recipe_content}"
     end
+    puts "\n"
   end
 
 else  # ID指定がある場合
@@ -64,5 +65,6 @@ else  # ID指定がある場合
     recipes.each do |recipe_id, recipe_content|
       puts "#{recipe_id}: #{recipe_content}" if selected_id == recipe_id
     end
+    puts "\n"
   end
 end
