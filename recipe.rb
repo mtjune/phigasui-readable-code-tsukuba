@@ -1,6 +1,9 @@
 #! /usr/bin/env ruby
 # coding: utf-8
 
-recipe_title = "オムライス"
+file_name = ARGV.length > 0 ? ARGV[0] : "recipe-data.txt"
 
-p recipe_title
+File.open(file_name, "r") do |recipe_data|
+  recipe_title = recipe_data.gets
+  puts recipe_title
+end
