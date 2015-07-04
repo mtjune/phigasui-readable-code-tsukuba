@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
 # coding: utf-8
 
-puts "オムライス"
+recipe_title = "オムライス"
+
+p recipe_title
