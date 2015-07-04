@@ -6,25 +6,30 @@
 user_num = ARGV.length / 2
 
 # ユーザ名とファイルを読み込み
-users = Hash.new
-user_count = 0
-recipe_count = 0
-while user_count < user_num
-  user_name = ARGV[user_count * 2]
-  file_name = ARGV[user_count * 2 + 1]
+users = Array.new
+recipes = Array.new
 
-  users[user_name] = Hash.new
+user_id = 0
+recipe_id = 0
+while user_id < user_num
+  user_name = ARGV[user_id * 2]
+  file_name = ARGV[user_id * 2 + 1]
+
+  user = {"name" => user_name, "id" => user_id}
+  users.push(user)
 
   File.open(file_name, "r") do |recipe_data|
 
     recipe_data.readlines.each do |recipe_content|
-      users[user_name][recipe_count] = recipe_content
-      recipe_count += 1
+      (recipe_name, recipe_description) = recipe_content.split(" ")
+      recipe = {"name" => recipe_name, "description" => recipe_description, "id" => recipe_id, "user_id" => user_id}
+      recipes.push(recipe)
+      recipe_id += 1
     end
 
   end
 
-  user_count += 1
+  user_id += 1
 end
 
 
@@ -50,20 +55,24 @@ end
 
 # 表示
 if ARGV.length % 2 == 0 # ID指定が無い場合
-  users.each do |user_name, recipes|
-    puts "ユーザ名: #{user_name}"
-    recipes.each do |recipe_id, recipe_content|
-      puts "#{recipe_id}: #{recipe_content}"
+  users.each do |user_hash|
+    puts "ユーザ名: #{user_hash["id"]}: #{user_hash["name"]}"
+    recipes.each do |recipe_hash|
+      if user_hash["id"] == recipe_hash["user_id"]
+        puts "#{recipe_hash["id"]}: #{recipe_hash["name"]} #{recipe_hash["description"]}"
+      end
     end
     puts "\n"
   end
 
 else  # ID指定がある場合
   selected_id = ARGV[user_num * 2].to_i
-  users.each do |user_name, recipes|
-    puts "ユーザ名: #{user_name}"
-    recipes.each do |recipe_id, recipe_content|
-      puts "#{recipe_id}: #{recipe_content}" if selected_id == recipe_id
+  users.each do |user_hash|
+    puts "ユーザ名: #{user_hash["id"]}: #{user_hash["name"]}"
+    recipes.each do |recipe_hash|
+      if user_hash["id"] == recipe_hash["user_id"] and selected_id == recipe_hash["id"]
+        puts "#{recipe_hash["id"]}: #{recipe_hash["name"]} #{recipe_hash["description"]}"
+      end
     end
     puts "\n"
   end
